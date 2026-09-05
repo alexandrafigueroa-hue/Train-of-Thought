@@ -1,34 +1,18 @@
+
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Train of Thought — Alexandra Figueroa</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Alexandra Station — Train of Thought</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="page-shell">
-    <section class="station" aria-label="Train of Thought landing page">
-      <img class="layer ceiling" src="assets/ceiling.png" alt="" aria-hidden="true">
-      <img class="layer wall" src="assets/wall.png" alt="" aria-hidden="true">
-      <img class="layer tracks" src="assets/tracks.png" alt="" aria-hidden="true">
-
-      <div class="station-sign" aria-label="Train of Thought">
-        <img src="assets/station-sign.png" alt="" aria-hidden="true">
-        <span>TRAIN OF THOUGHT</span>
-      </div>
-
-      <a class="departures-sign" href="departures.html" aria-label="Open departures">
-        <span class="fluoro-glow" aria-hidden="true"></span>
-        <img src="assets/departures-sign.png" alt="" aria-hidden="true">
-        <span class="departures-copy">DEPARTURES <span class="arrow" aria-hidden="true">→</span></span>
-      </a>
-
-      <img class="chairs" src="assets/chairs.png" alt="" aria-hidden="true">
-      <img id="train" class="train" src="assets/train.png" alt="Train of Thought train arriving from the left">
-
-      <button id="replay" class="replay" type="button" aria-label="Replay arrival animation">Replay</button>
-    </section>
+  <main class="landing">
+    <img class="station-background" src="assets/background.png" alt="" aria-hidden="true">
+    <img class="train" id="train" src="assets/train.png" alt="Train of Thought train">
+    <a class="departures-hitbox" id="departures" href="departures.html" aria-label="View departures"></a>
+    <button class="replay" id="replay" type="button">Replay</button>
   </main>
   <script src="script.js"></script>
 </body>
