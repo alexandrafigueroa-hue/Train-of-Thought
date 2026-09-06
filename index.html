@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Train Animation Test</title>
+  <title>Train of Thought</title>
 
   <style>
 
@@ -39,40 +39,90 @@
     .train {
       position: absolute;
 
+      /*
+        BIG TRAIN:
+        only a couple cars should dominate
+        the frame, not the whole train.
+      */
+
       width: 180vw;
       max-width: none;
       height: auto;
 
-      left: 0;
+      /*
+        FINAL PARKED POSITION
+      */
+
+      left: -32vw;
       bottom: -5vh;
 
       z-index: 10;
 
       /*
-        TEST ANIMATION
-
-        It goes back and forth FOREVER.
-
-        So there is no way for us to
-        accidentally miss the animation.
+        ONE-TIME ARRIVAL
       */
 
-      animation-name: trainTest;
-      animation-duration: 8s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
+      animation:
+        trainArrival
+        10s
+        cubic-bezier(.12, .72, .16, 1)
+        forwards;
     }
 
 
-    @keyframes trainTest {
+    @keyframes trainArrival {
 
-      from {
-        left: -180vw;
+      /*
+        Starts fully offscreen left
+      */
+
+      0% {
+        transform: translateX(-150vw);
       }
 
-      to {
-        left: -30vw;
+
+      /*
+        Still moving with momentum
+      */
+
+      55% {
+        transform: translateX(-55vw);
+      }
+
+
+      /*
+        Begins slowing
+      */
+
+      78% {
+        transform: translateX(-16vw);
+      }
+
+
+      /*
+        Almost stopped
+      */
+
+      91% {
+        transform: translateX(-2vw);
+      }
+
+
+      /*
+        Tiny overshoot
+      */
+
+      96% {
+        transform: translateX(.5vw);
+      }
+
+
+      /*
+        Settles into final position
+      */
+
+      100% {
+        transform: translateX(0);
       }
 
     }
