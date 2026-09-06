@@ -19,9 +19,7 @@
     }
 
 
-    /* =========================
-       BACKGROUND
-       ========================= */
+    /* BACKGROUND */
 
     .background {
       position: absolute;
@@ -38,9 +36,7 @@
     }
 
 
-    /* =========================
-       TRAIN
-       ========================= */
+    /* TRAIN */
 
     .train {
       position: absolute;
@@ -49,17 +45,47 @@
       max-width: none;
       height: auto;
 
-      bottom: -5vh;
-
       /*
-        JavaScript controls LEFT.
+        This is where the train ends.
+        This NEVER changes.
       */
 
-      left: -180vw;
+      left: -32vw;
+      bottom: -5vh;
 
       z-index: 10;
 
       pointer-events: none;
+
+      /*
+        Start offscreen using TRANSFORM,
+        not left.
+      */
+
+      transform: translate3d(-150vw, 0, 0);
+
+      /*
+        Ask browser to put train on its
+        own composited layer.
+      */
+
+      will-change: transform;
+
+      /*
+        One smooth movement.
+      */
+
+      transition:
+        transform
+        10s
+        cubic-bezier(.20, .75, .25, 1);
+    }
+
+
+    /* FINAL POSITION */
+
+    .train.arrived {
+      transform: translate3d(0, 0, 0);
     }
 
   </style>
@@ -85,141 +111,37 @@
 
   <script>
 
-    const train = document.getElementById("train");
+    const train =
+      document.getElementById("train");
 
-
-    /* =====================================
-       TRAIN SETTINGS
-       ===================================== */
-
-    const START = -180;
-    const END = -32;
-
-    /*
-      10 seconds total.
-    */
-
-    const DURATION = 10000;
-
-
-    /* =====================================
-       ONE CONTINUOUS DECELERATION
-
-       This equation means:
-
-       fast at beginning
-       gradually slower
-       slower
-       slower
-       STOP
-
-       It never reverses.
-       It never accelerates again.
-       ===================================== */
-
-    function easeOutQuad(t) {
-
-      return 1 - (1 - t) * (1 - t);
-
-    }
-
-
-    /* =====================================
-       MOVE TRAIN
-       ===================================== */
 
     function startTrain() {
 
-      const startTime = performance.now();
+      /*
+        Give Safari TWO rendered frames
+        with the train offscreen first.
 
+        Then trigger ONE transform.
+      */
 
-      function move(currentTime) {
+      requestAnimationFrame(() => {
 
-        const elapsed =
-          currentTime - startTime;
+        requestAnimationFrame(() => {
 
+          train.classList.add("arrived");
 
-        /*
-          Turn elapsed time into
-          a number from 0 to 1.
-        */
+        });
 
-        const t =
-          Math.min(
-            elapsed / DURATION,
-            1
-          );
-
-
-        /*
-          Smooth continuous slowdown.
-        */
-
-        const progress =
-          easeOutQuad(t);
-
-
-        /*
-          Calculate exact position.
-        */
-
-        const position =
-          START +
-          (END - START) * progress;
-
-
-        /*
-          Move train.
-        */
-
-        train.style.left =
-          position + "vw";
-
-
-        /*
-          Continue ONLY until we
-          actually reach the end.
-        */
-
-        if (t < 1) {
-
-          requestAnimationFrame(move);
-
-        }
-
-        else {
-
-          /*
-            Lock it permanently.
-
-            There is no animation left
-            after this point.
-          */
-
-          train.style.left =
-            END + "vw";
-
-        }
-
-      }
-
-
-      requestAnimationFrame(move);
+      });
 
     }
 
-
-    /* =====================================
-       WAIT FOR TRAIN PNG
-       ===================================== */
 
     if (train.complete) {
 
       startTrain();
 
-    }
-
-    else {
+    } else {
 
       train.addEventListener(
         "load",
