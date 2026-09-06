@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Alexandra Station — Train of Thought</title>
+
+  <link
+    rel="stylesheet"
+    href="./styles.css"
+  >
+</head>
+
+
+<body>
+
+  <main class="station">
+
+    <!--
+      COMPLETE ILLUSTRATOR BACKGROUND
+
+      Includes:
+      - station
+      - Alexandra Station sign
+      - Departures sign
+      - chairs
+      - tracks
+      - everything EXCEPT train
+    -->
+
+    <img
+      class="station-background"
+      src="./assets/background.png"
+      alt=""
+      draggable="false"
+    >
+
+
+    <!--
+      TRAIN
+
+      This PNG should contain ONLY
+      the train on transparency.
+
+      TRAIN OF THOUGHT should already
+      be printed on the train artwork.
+    -->
+
+    <img
+      class="train"
+      id="train"
+      src="./assets/train.png"
+      alt="Train of Thought"
+      draggable="false"
+    >
+
+
+    <!--
+      INVISIBLE CLICK AREA
+
+      This sits over the Departures sign.
+
+      It does NOT contain any text,
+      because the real typography is
+      already inside background.png.
+    -->
+
+    <button
+      class="departures"
+      id="departures"
+      type="button"
+      aria-label="Departures"
+    ></button>
+
+
+    <!-- TEMPORARY TEST BUTTON -->
+
+    <button
+      class="replay"
+      id="replay"
+      type="button"
+    >
+      Replay
+    </button>
+
+  </main>
+
+
+  <script src="./script.js"></script>
+
+</body>
+
+</html>
