@@ -8,7 +8,6 @@
   <title>Train of Thought</title>
 
   <style>
-
     html,
     body {
       margin: 0;
@@ -17,8 +16,6 @@
       overflow: hidden;
       background: #171717;
     }
-
-    /* STATION */
 
     .background {
       position: absolute;
@@ -32,8 +29,6 @@
       z-index: 1;
     }
 
-    /* TRAIN */
-
     .train {
       position: absolute;
 
@@ -45,38 +40,29 @@
 
       z-index: 10;
 
-      /*
-        START POSITION
-      */
-      left: -180vw;
-
-      /*
-        ONE ARRIVAL.
-        NO SECOND PUSH.
-        NO BOUNCE.
-      */
-      animation-name: trainArrival;
-      animation-duration: 10s;
-      animation-timing-function: cubic-bezier(.16, .72, .18, 1);
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
+      animation-name: trainTest;
+      animation-duration: 60s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
 
-    @keyframes trainArrival {
+    @keyframes trainTest {
 
-      from {
+      0% {
         left: -180vw;
       }
 
-      to {
+      16% {
+        left: -32vw;
+      }
+
+      100% {
         left: -32vw;
       }
 
     }
-
   </style>
 </head>
-
 
 <body>
 
