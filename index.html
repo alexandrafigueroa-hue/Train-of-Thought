@@ -19,9 +19,9 @@
     }
 
 
-    /* ==============================
+    /* =========================
        BACKGROUND
-       ============================== */
+       ========================= */
 
     .background {
       position: absolute;
@@ -36,16 +36,12 @@
     }
 
 
-    /* ==============================
+    /* =========================
        TRAIN
-       ============================== */
+       ========================= */
 
     .train {
       position: absolute;
-
-      /*
-        KEEPING THE LARGE SCALE
-      */
 
       width: 180vw;
       max-width: none;
@@ -55,35 +51,28 @@
 
       z-index: 10;
 
-
       /*
-        FINAL RESTING POSITION
+        FINAL PARKED POSITION
       */
 
       left: -32vw;
-
-
-      /*
-        ONE SINGLE ARRIVAL
-
-        ease-out = keeps moving and
-        progressively slows all the way
-        until the ACTUAL stopping point.
-      */
-
-      animation-name: trainArrival;
-      animation-duration: 10s;
-      animation-timing-function: ease-out;
-      animation-iteration-count: 1;
-      animation-fill-mode: backwards;
     }
 
 
-    /* ==============================
-       TRAIN MOVEMENT
-       ============================== */
+    /* =========================
+       WORKING MOVEMENT
+       ========================= */
 
-    @keyframes trainArrival {
+    .train.moving {
+      animation-name: trainMove;
+      animation-duration: 10s;
+      animation-timing-function: linear;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+
+
+    @keyframes trainMove {
 
       from {
         left: -180vw;
@@ -110,10 +99,106 @@
 
 
   <img
+    id="train"
     class="train"
     src="./assets/train.png"
     alt="Train of Thought"
   >
+
+
+  <script>
+
+    const train = document.getElementById("train");
+
+
+    /*
+      WAIT UNTIL THE TRAIN IMAGE ITSELF
+      IS ACTUALLY LOADED.
+    */
+
+    function startTrain() {
+
+      /*
+        Explicit starting position.
+      */
+
+      train.style.left = "-180vw";
+
+
+      /*
+        Force Safari to draw that position
+        BEFORE starting the animation.
+      */
+
+      void train.offsetWidth;
+
+
+      /*
+        Remove the inline left value so
+        the animation can take control.
+      */
+
+      train.style.left = "";
+
+
+      /*
+        Start ONE animation.
+      */
+
+      train.classList.add("moving");
+
+    }
+
+
+    /*
+      Start only once.
+    */
+
+    if (train.complete) {
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(startTrain);
+      });
+
+    } else {
+
+      train.addEventListener(
+        "load",
+        () => {
+
+          requestAnimationFrame(() => {
+            requestAnimationFrame(startTrain);
+          });
+
+        },
+        { once: true }
+      );
+
+    }
+
+
+    /*
+      WHEN THE ANIMATION FINISHES:
+
+      1. Lock train at final position.
+      2. Remove animation entirely.
+
+      There is therefore NOTHING LEFT
+      that can move the train afterward.
+    */
+
+    train.addEventListener(
+      "animationend",
+      () => {
+
+        train.style.animation = "none";
+        train.style.left = "-32vw";
+
+      },
+      { once: true }
+    );
+
+  </script>
 
 </body>
 
