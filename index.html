@@ -8,6 +8,7 @@
   <title>Train of Thought</title>
 
   <style>
+
     html,
     body {
       margin: 0;
@@ -16,6 +17,9 @@
       overflow: hidden;
       background: #171717;
     }
+
+
+    /* BACKGROUND */
 
     .background {
       position: absolute;
@@ -29,6 +33,9 @@
       z-index: 1;
     }
 
+
+    /* TRAIN */
+
     .train {
       position: absolute;
 
@@ -40,29 +47,69 @@
 
       z-index: 10;
 
+
+      /* SAME WORKING ANIMATION */
+
       animation-name: trainTest;
       animation-duration: 60s;
       animation-timing-function: linear;
-      animation-iteration-count: infinite;
+
+
+      /*
+        ONLY CHANGE:
+
+        Play once instead of repeating.
+      */
+
+      animation-iteration-count: 1;
+
+
+      /*
+        Keep the train at its final position
+        when the animation finishes.
+      */
+
+      animation-fill-mode: forwards;
     }
 
+
+    /* SAME WORKING MOVEMENT */
+
     @keyframes trainTest {
+
+      /*
+        Train begins offscreen.
+      */
 
       0% {
         left: -180vw;
       }
 
+
+      /*
+        Train arrives during the first
+        ~10 seconds.
+      */
+
       16% {
         left: -32vw;
       }
+
+
+      /*
+        Train stays EXACTLY here.
+      */
 
       100% {
         left: -32vw;
       }
 
     }
+
   </style>
+
 </head>
+
 
 <body>
 
@@ -71,6 +118,7 @@
     src="./assets/background.png"
     alt=""
   >
+
 
   <img
     class="train"
