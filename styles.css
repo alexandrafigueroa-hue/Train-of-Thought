@@ -1,5 +1,5 @@
 /* =========================================
-   TRAIN OF THOUGHT — LANDING PAGE
+   TRAIN OF THOUGHT — LANDING
    ========================================= */
 
 * {
@@ -60,22 +60,32 @@ body {
 .train {
   position: absolute;
 
-  /* VERY LARGE TRAIN */
-  height: 72vh;
+  /*
+    BIG TRAIN.
+    We are intentionally cropping most
+    of the full train so only around
+    two cars feel visible.
+  */
+  height: 76vh;
   width: auto;
   max-width: none;
 
-  /* FINAL POSITION */
-  left: -22vw;
-  bottom: -8vh;
+  /*
+    FINAL RESTING POSITION
+  */
+  left: -15vw;
+  bottom: -7vh;
 
   z-index: 3;
 
   pointer-events: none;
   user-select: none;
 
-  /* START JUST OFF SCREEN LEFT */
-  transform: translateX(-115vw);
+  /*
+    IMPORTANT:
+    Train is VISIBLE by default.
+  */
+  transform: translateX(0);
 
   will-change: transform;
 }
@@ -86,12 +96,9 @@ body {
    ========================================= */
 
 .train.is-arriving {
-  animation:
-    train-arrive
-    7s
-    cubic-bezier(.22, .61, .18, 1)
-    forwards;
+  animation: train-arrive 7.5s cubic-bezier(.16, .70, .14, 1) forwards;
 }
+
 
 @keyframes train-arrive {
 
@@ -99,12 +106,16 @@ body {
     transform: translateX(-115vw);
   }
 
-  78% {
-    transform: translateX(0.8vw);
+  72% {
+    transform: translateX(-8vw);
   }
 
-  92% {
-    transform: translateX(-0.15vw);
+  88% {
+    transform: translateX(1vw);
+  }
+
+  95% {
+    transform: translateX(-0.25vw);
   }
 
   100% {
@@ -114,20 +125,21 @@ body {
 
 
 /* =========================================
-   DEPARTURES CLICK AREA
+   DEPARTURES CLICK TARGET
    ========================================= */
 
 .departures-hitbox {
   position: absolute;
 
   /*
-    Tight area over the actual sign
+    We will fine-tune this after
+    seeing the next screenshot.
   */
-  left: 72.4%;
-  top: 27.6%;
+  left: 70.5%;
+  top: 27.2%;
 
-  width: 21.6%;
-  height: 8.2%;
+  width: 22.5%;
+  height: 8%;
 
   z-index: 5;
 
@@ -135,13 +147,14 @@ body {
 
   background: transparent;
   border: none;
-  border-radius: 6px;
   outline: none;
+
+  border-radius: 5px;
 }
 
 
 /* =========================================
-   DEPARTURES PERIMETER GLOW
+   DEPARTURES FLUORESCENT EDGE LIGHT
    ========================================= */
 
 .departures-hitbox::before {
@@ -151,7 +164,7 @@ body {
 
   inset: -2px;
 
-  border-radius: 7px;
+  border-radius: 6px;
 
   background: transparent;
 
@@ -160,9 +173,9 @@ body {
   pointer-events: none;
 
   box-shadow:
-    0 0 4px 1px rgba(255, 255, 235, .75),
-    0 0 9px 2px rgba(245, 250, 220, .40),
-    0 0 16px 3px rgba(230, 240, 200, .18);
+    0 0 3px 1px rgba(255, 255, 235, .75),
+    0 0 8px 2px rgba(245, 250, 220, .38),
+    0 0 15px 3px rgba(230, 240, 200, .16);
 }
 
 
@@ -171,27 +184,37 @@ body {
    ========================================= */
 
 .departures-hitbox.is-flickering::before {
-  animation:
-    fluorescent-flicker
-    1.25s
-    linear
-    forwards;
+  animation: fluorescent-flicker 1.35s linear forwards;
 }
 
+
 @keyframes fluorescent-flicker {
+
   0%   { opacity: 0; }
-  8%   { opacity: .70; }
-  13%  { opacity: .05; }
-  22%  { opacity: .90; }
-  29%  { opacity: .10; }
-  36%  { opacity: .65; }
-  43%  { opacity: .12; }
+
+  8%   { opacity: .75; }
+
+  13%  { opacity: .04; }
+
+  22%  { opacity: .95; }
+
+  28%  { opacity: .10; }
+
+  36%  { opacity: .70; }
+
+  43%  { opacity: .08; }
+
   52%  { opacity: .90; }
-  60%  { opacity: .30; }
-  69%  { opacity: .75; }
-  77%  { opacity: .40; }
-  88%  { opacity: .70; }
-  100% { opacity: .18; }
+
+  61%  { opacity: .28; }
+
+  70%  { opacity: .72; }
+
+  79%  { opacity: .38; }
+
+  89%  { opacity: .68; }
+
+  100% { opacity: .16; }
 }
 
 
@@ -200,7 +223,7 @@ body {
    ========================================= */
 
 .departures-hitbox.is-lit::before {
-  opacity: .18;
+  opacity: .16;
 }
 
 
@@ -210,17 +233,17 @@ body {
 
 .departures-hitbox:hover::before,
 .departures-hitbox:focus-visible::before {
-  opacity: .58;
+  opacity: .55;
 
   box-shadow:
-    0 0 5px 1px rgba(255, 255, 238, .88),
-    0 0 11px 2px rgba(245, 250, 220, .50),
-    0 0 20px 3px rgba(230, 240, 200, .24);
+    0 0 4px 1px rgba(255, 255, 240, .88),
+    0 0 10px 2px rgba(245, 250, 220, .48),
+    0 0 19px 3px rgba(230, 240, 200, .22);
 }
 
 
 /* =========================================
-   REPLAY BUTTON
+   REPLAY BUTTON — TEMPORARY
    ========================================= */
 
 .replay {
@@ -249,21 +272,19 @@ body {
 
 
 /* =========================================
-   ACCESSIBILITY
+   REDUCED MOTION
    ========================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
-  .train {
-    transform: translateX(0);
-  }
-
+  .train,
   .train.is-arriving {
     animation: none;
+    transform: translateX(0);
   }
 
   .departures-hitbox.is-flickering::before {
     animation: none;
-    opacity: .18;
+    opacity: .16;
   }
 }
