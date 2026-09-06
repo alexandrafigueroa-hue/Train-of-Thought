@@ -40,9 +40,9 @@
       position: absolute;
 
       /*
-        BIG TRAIN:
-        only a couple cars should dominate
-        the frame, not the whole train.
+        LARGE TRAIN
+        Only a couple of cars should
+        dominate the frame.
       */
 
       width: 180vw;
@@ -59,7 +59,7 @@
       z-index: 10;
 
       /*
-        ONE-TIME ARRIVAL
+        ONE CONTINUOUS ARRIVAL
       */
 
       animation:
@@ -73,7 +73,7 @@
     @keyframes trainArrival {
 
       /*
-        Starts fully offscreen left
+        Starts completely offscreen
       */
 
       0% {
@@ -82,7 +82,7 @@
 
 
       /*
-        Still moving with momentum
+        Moving into station
       */
 
       55% {
@@ -91,7 +91,7 @@
 
 
       /*
-        Begins slowing
+        Gradually slowing
       */
 
       78% {
@@ -100,25 +100,20 @@
 
 
       /*
-        Almost stopped
+        Almost at final position
       */
 
-      91% {
-        transform: translateX(-2vw);
+      92% {
+        transform: translateX(-3vw);
       }
 
 
       /*
-        Tiny overshoot
-      */
+        STOP.
 
-      96% {
-        transform: translateX(.5vw);
-      }
-
-
-      /*
-        Settles into final position
+        No overshoot.
+        No recoil.
+        No second push.
       */
 
       100% {
