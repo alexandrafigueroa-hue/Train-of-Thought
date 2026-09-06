@@ -19,7 +19,9 @@
     }
 
 
-    /* BACKGROUND */
+    /* ==============================
+       BACKGROUND
+       ============================== */
 
     .background {
       position: absolute;
@@ -34,10 +36,16 @@
     }
 
 
-    /* TRAIN */
+    /* ==============================
+       TRAIN
+       ============================== */
 
     .train {
       position: absolute;
+
+      /*
+        KEEPING THE LARGE SCALE
+      */
 
       width: 180vw;
       max-width: none;
@@ -47,43 +55,39 @@
 
       z-index: 10;
 
+
       /*
-        IMPORTANT:
-        This is ALSO the final position.
+        FINAL RESTING POSITION
       */
 
       left: -32vw;
 
 
       /*
-        SAME BASIC ANIMATION METHOD
-        THAT WE KNOW WORKS.
+        ONE SINGLE ARRIVAL
+
+        ease-out = keeps moving and
+        progressively slows all the way
+        until the ACTUAL stopping point.
       */
 
       animation-name: trainArrival;
-      animation-duration: 9.6s;
-      animation-timing-function: linear;
+      animation-duration: 10s;
+      animation-timing-function: ease-out;
       animation-iteration-count: 1;
       animation-fill-mode: backwards;
     }
 
 
-    @keyframes trainArrival {
+    /* ==============================
+       TRAIN MOVEMENT
+       ============================== */
 
-      /*
-        START
-      */
+    @keyframes trainArrival {
 
       from {
         left: -180vw;
       }
-
-
-      /*
-        ONE FINAL STOP.
-
-        There are NO keyframes after this.
-      */
 
       to {
         left: -32vw;
