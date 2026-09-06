@@ -33,6 +33,8 @@
       object-fit: cover;
 
       z-index: 1;
+
+      pointer-events: none;
     }
 
 
@@ -49,43 +51,18 @@
 
       bottom: -5vh;
 
-      z-index: 10;
-
       /*
-        FINAL PARKED POSITION
+        JavaScript controls LEFT.
       */
 
-      left: -32vw;
-    }
+      left: -180vw;
 
+      z-index: 10;
 
-    /* =========================
-       WORKING MOVEMENT
-       ========================= */
-
-    .train.moving {
-      animation-name: trainMove;
-      animation-duration: 10s;
-      animation-timing-function: linear;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-    }
-
-
-    @keyframes trainMove {
-
-      from {
-        left: -180vw;
-      }
-
-      to {
-        left: -32vw;
-      }
-
+      pointer-events: none;
     }
 
   </style>
-
 </head>
 
 
@@ -111,92 +88,146 @@
     const train = document.getElementById("train");
 
 
+    /* =====================================
+       TRAIN SETTINGS
+       ===================================== */
+
+    const START = -180;
+    const END = -32;
+
     /*
-      WAIT UNTIL THE TRAIN IMAGE ITSELF
-      IS ACTUALLY LOADED.
+      10 seconds total.
     */
 
-    function startTrain() {
-
-      /*
-        Explicit starting position.
-      */
-
-      train.style.left = "-180vw";
+    const DURATION = 10000;
 
 
-      /*
-        Force Safari to draw that position
-        BEFORE starting the animation.
-      */
+    /* =====================================
+       ONE CONTINUOUS DECELERATION
 
-      void train.offsetWidth;
+       This equation means:
 
+       fast at beginning
+       gradually slower
+       slower
+       slower
+       STOP
 
-      /*
-        Remove the inline left value so
-        the animation can take control.
-      */
+       It never reverses.
+       It never accelerates again.
+       ===================================== */
 
-      train.style.left = "";
+    function easeOutQuad(t) {
 
-
-      /*
-        Start ONE animation.
-      */
-
-      train.classList.add("moving");
+      return 1 - (1 - t) * (1 - t);
 
     }
 
 
-    /*
-      Start only once.
-    */
+    /* =====================================
+       MOVE TRAIN
+       ===================================== */
+
+    function startTrain() {
+
+      const startTime = performance.now();
+
+
+      function move(currentTime) {
+
+        const elapsed =
+          currentTime - startTime;
+
+
+        /*
+          Turn elapsed time into
+          a number from 0 to 1.
+        */
+
+        const t =
+          Math.min(
+            elapsed / DURATION,
+            1
+          );
+
+
+        /*
+          Smooth continuous slowdown.
+        */
+
+        const progress =
+          easeOutQuad(t);
+
+
+        /*
+          Calculate exact position.
+        */
+
+        const position =
+          START +
+          (END - START) * progress;
+
+
+        /*
+          Move train.
+        */
+
+        train.style.left =
+          position + "vw";
+
+
+        /*
+          Continue ONLY until we
+          actually reach the end.
+        */
+
+        if (t < 1) {
+
+          requestAnimationFrame(move);
+
+        }
+
+        else {
+
+          /*
+            Lock it permanently.
+
+            There is no animation left
+            after this point.
+          */
+
+          train.style.left =
+            END + "vw";
+
+        }
+
+      }
+
+
+      requestAnimationFrame(move);
+
+    }
+
+
+    /* =====================================
+       WAIT FOR TRAIN PNG
+       ===================================== */
 
     if (train.complete) {
 
-      requestAnimationFrame(() => {
-        requestAnimationFrame(startTrain);
-      });
+      startTrain();
 
-    } else {
+    }
+
+    else {
 
       train.addEventListener(
         "load",
-        () => {
-
-          requestAnimationFrame(() => {
-            requestAnimationFrame(startTrain);
-          });
-
-        },
+        startTrain,
         { once: true }
       );
 
     }
-
-
-    /*
-      WHEN THE ANIMATION FINISHES:
-
-      1. Lock train at final position.
-      2. Remove animation entirely.
-
-      There is therefore NOTHING LEFT
-      that can move the train afterward.
-    */
-
-    train.addEventListener(
-      "animationend",
-      () => {
-
-        train.style.animation = "none";
-        train.style.left = "-32vw";
-
-      },
-      { once: true }
-    );
 
   </script>
 
