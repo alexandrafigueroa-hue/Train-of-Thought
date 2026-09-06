@@ -47,60 +47,45 @@
 
       z-index: 10;
 
+      /*
+        IMPORTANT:
+        This is ALSO the final position.
+      */
 
-      /* SAME WORKING ANIMATION */
+      left: -32vw;
 
-      animation-name: trainTest;
-      animation-duration: 60s;
+
+      /*
+        SAME BASIC ANIMATION METHOD
+        THAT WE KNOW WORKS.
+      */
+
+      animation-name: trainArrival;
+      animation-duration: 9.6s;
       animation-timing-function: linear;
-
-
-      /*
-        ONLY CHANGE:
-
-        Play once instead of repeating.
-      */
-
       animation-iteration-count: 1;
-
-
-      /*
-        Keep the train at its final position
-        when the animation finishes.
-      */
-
-      animation-fill-mode: forwards;
+      animation-fill-mode: backwards;
     }
 
 
-    /* SAME WORKING MOVEMENT */
-
-    @keyframes trainTest {
+    @keyframes trainArrival {
 
       /*
-        Train begins offscreen.
+        START
       */
 
-      0% {
+      from {
         left: -180vw;
       }
 
 
       /*
-        Train arrives during the first
-        ~10 seconds.
+        ONE FINAL STOP.
+
+        There are NO keyframes after this.
       */
 
-      16% {
-        left: -32vw;
-      }
-
-
-      /*
-        Train stays EXACTLY here.
-      */
-
-      100% {
+      to {
         left: -32vw;
       }
 
