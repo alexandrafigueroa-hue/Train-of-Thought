@@ -18,7 +18,6 @@
       background: #171717;
     }
 
-
     /* STATION */
 
     .background {
@@ -33,97 +32,49 @@
       z-index: 1;
     }
 
-
     /* TRAIN */
 
     .train {
       position: absolute;
 
-      /*
-        LARGE TRAIN
-        Only a couple of cars should
-        dominate the frame.
-      */
-
       width: 180vw;
       max-width: none;
       height: auto;
 
-      /*
-        FINAL PARKED POSITION
-      */
-
-      left: -32vw;
       bottom: -5vh;
 
       z-index: 10;
 
       /*
-        ONE CONTINUOUS ARRIVAL
+        START POSITION
       */
+      left: -180vw;
 
-      animation:
-        trainArrival
-        10s
-        cubic-bezier(.12, .72, .16, 1)
-        forwards;
+      /*
+        ONE ARRIVAL.
+        NO SECOND PUSH.
+        NO BOUNCE.
+      */
+      animation-name: trainArrival;
+      animation-duration: 10s;
+      animation-timing-function: cubic-bezier(.16, .72, .18, 1);
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
     }
-
 
     @keyframes trainArrival {
 
-      /*
-        Starts completely offscreen
-      */
-
-      0% {
-        transform: translateX(-150vw);
+      from {
+        left: -180vw;
       }
 
-
-      /*
-        Moving into station
-      */
-
-      55% {
-        transform: translateX(-55vw);
-      }
-
-
-      /*
-        Gradually slowing
-      */
-
-      78% {
-        transform: translateX(-16vw);
-      }
-
-
-      /*
-        Almost at final position
-      */
-
-      92% {
-        transform: translateX(-3vw);
-      }
-
-
-      /*
-        STOP.
-
-        No overshoot.
-        No recoil.
-        No second push.
-      */
-
-      100% {
-        transform: translateX(0);
+      to {
+        left: -32vw;
       }
 
     }
 
   </style>
-
 </head>
 
 
@@ -134,7 +85,6 @@
     src="./assets/background.png"
     alt=""
   >
-
 
   <img
     class="train"
